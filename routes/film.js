@@ -22,16 +22,15 @@ const myCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 // import OMDAPI lib
 const omdApi = require("../lib/omdapi");
 router.get('/', wrap((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.query.title) {
-        const error = new HttpException_1.HttpException(400, 'Req query Title is needed');
+    if (!req.query.title || !req.query.page) {
+        const error = new HttpException_1.HttpException(400, 'Req query Title or req query Page is missing');
         return next(error);
     }
-    const dataCache = myCache.get(req.query.title);
-    console.log('dataCache', dataCache);
+    const dataCache = myCache.get(`${req.query.title}-page${req.query.page}`);
     if (dataCache) {
         return res.send(dataCache);
     }
-    const resAPI = yield omdApi.searchFilm(req.query.title);
+    const resAPI = yield omdApi.searchFilm(req.query.title, req.query.page);
     if (resAPI && resAPI.response && resAPI.response.data.Response === 'False') {
         const error = new HttpException_1.HttpException(400, resAPI.response.data.Error);
         return next(error);
@@ -42,7 +41,6 @@ router.get('/', wrap((req, res, next) => __awaiter(void 0, void 0, void 0, funct
     }
     // Add to cache
     const success = myCache.set(req.query.title, resAPI.data, 60);
-    console.log('success', success);
     const dataAPI = resAPI.data;
     return res.send(dataAPI);
 })));

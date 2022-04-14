@@ -3,12 +3,27 @@ import {AxiosResponse} from "axios";
 const conf = require('../conf');
 const axios = require('axios');
 
-const searchFilm = async (title:string) => {
-    console.log('in search film');
+export interface ParamsSearchFilmI {
+    apiKey: string,
+    s: string;
+    page: number,
+    type: string
+}
+
+export interface ParamsFullFilmI {
+    apiKey: string,
+    i: string;
+}
+
+const searchFilm = async (title:string, page:number) => {
     try {
-        const url = conf.omdApi.url;
-        const fullUrl = `${url}/?apikey=${conf.omdApi.apiKey}&type=movie&s=${title}`;
-        const response:AxiosResponse = await axios.get(fullUrl);
+        const params:ParamsSearchFilmI = {
+            apiKey: conf.omdApi.apiKey,
+            s: title,
+            page,
+            type: 'movie'
+        };
+        const response:AxiosResponse = await axios.get(conf.omdApi.url, { params });
         return response
     }
     catch (error) {
@@ -19,9 +34,11 @@ const searchFilm = async (title:string) => {
 
 const getFullFilm = async (id:string) => {
     try {
-        const url = conf.omdApi.url;
-        const fullUrl = `${url}/?apikey=${conf.omdApi.apiKey}&i=${id}`;
-        const response:AxiosResponse = await axios.get(fullUrl);
+        const params:ParamsFullFilmI = {
+            apiKey: conf.omdApi.apiKey,
+            i: id,
+        };
+        const response:AxiosResponse = await axios.get(conf.omdApi.url, { params });
         return response
     }
     catch (error) {

@@ -25,8 +25,8 @@ app.use(cors({origin: true, credentials: true}))
 app.use('/', api);
 
 
-app.listen(3000, () => {
-    console.log('The application is listening on port 3000!');
+app.listen(8089, () => {
+    console.log('The application is listening on port 8089!');
 })
 
 
