@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express_1.default.static(path.join(__dirname, 'public')));
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: true, credentials: true }));
 // Use router middleware
 app.use('/', api);
 app.listen(8089, () => {
