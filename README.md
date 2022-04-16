@@ -18,6 +18,6 @@ This project was bootstrapped with [NodeJS](https://nodejs.org/fr/) and [Expess]
 ### TODO
  New features we could develop : 
  - Make the search on OmdAPI with more fields (as year for example)
- - You can sort datas by a field. For exemple, if you want to sort data by dates, rating or another field. We could use quuery params to know by which field we want to sort data
+ - You can sort datas by a field. For exemple, if you want to sort data by dates, rating or another field. We could use query params to know by which field we want to sort data
 
 ENJOY :)
