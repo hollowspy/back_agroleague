@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, ErrorRequestHandler, NextFunction } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import {HttpException} from './exceptions/HttpException'
 const createError = require('http-errors');
 const path = require('path');
@@ -13,6 +13,7 @@ const app:Express = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 // configure the app to use bodyParser()
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
@@ -34,7 +35,6 @@ app.listen(8089, () => {
 app.use(function(req: Request, res: Response, next: NextFunction) {
     next(createError(404));
 });
-
 
 
 // error handler

@@ -7,7 +7,8 @@ export interface ParamsSearchFilmI {
     apiKey: string,
     s: string;
     page: number,
-    type: string
+    type: string,
+    plot: string;
 }
 
 export interface ParamsFullFilmI {
@@ -21,6 +22,7 @@ const searchFilm = async (title:string, page:number) => {
             apiKey: conf.omdApi.apiKey,
             s: title,
             page,
+            plot: 'full',
             type: 'movie'
         };
         const response:AxiosResponse = await axios.get(conf.omdApi.url, { params });
